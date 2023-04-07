@@ -16,7 +16,9 @@ function Nweet({ nweetObj, isOwner }) {
     console.log(ok);
     if (ok) {
       await deleteDoc(NweetTextRef);
-      await deleteObject(ref(storageService, nweetObj.attachmentUrl));
+      await deleteObject(
+        ref(storageService, nweetObj.attachmentUrl, nweetObj.userPhoto)
+      );
     }
   };
 
@@ -62,10 +64,22 @@ function Nweet({ nweetObj, isOwner }) {
         </>
       ) : (
         <>
+          {/* 테스트 용 img */}
+          <img src={nweetObj.photo} className="nweet_userImg" />
+          <div className="nweet_userName">
+            {nweetObj.Name}({nweetObj.uid})님의 글 - {nweetObj.date}
+          </div>
           <h4>{nweetObj.text}</h4>
-          {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} />}
+          {nweetObj.attachmentUrl && (
+            <>
+              <div className="nweet_border"></div>
+              <div className="nweet_imgPic">
+                <img src={nweetObj.attachmentUrl} className="nweet_img" />
+              </div>
+            </>
+          )}
           {isOwner && (
-            <div class="nweet__actions">
+            <div className="nweet__actions">
               <span onClick={onDeleteClick}>
                 <FontAwesomeIcon icon={faTrash} />
               </span>

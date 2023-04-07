@@ -10,13 +10,20 @@ import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 const NweetFactory = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [attachment, setAttachment] = useState("");
+  const [userPhoto, setUserPhoto] = useState(userObj.photoURL);
+  const [userName, setUserName] = useState(userObj.displayName);
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줍니다.
+  const day = currentDate.getDate();
+  const now = `${year}.${month}.${day}`;
 
   const onSubmit = async (event) => {
+    event.preventDefault();
     if (nweet === "") {
       return;
     }
-
-    event.preventDefault();
     let attachmentUrl = "";
     if (attachment !== "") {
       const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
@@ -27,10 +34,24 @@ const NweetFactory = ({ userObj }) => {
       );
       attachmentUrl = await getDownloadURL(response.ref);
     }
+
+    //테스트 용 프로릴 사진
+    // let photosUrl = "";
+    // const photosRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+    // const responsePhoto = await uploadString(photosRef, "data_url");
+    // photosUrl = await getDownloadURL(responsePhoto.ref);
+    const uid = userObj.uid;
+    const nweetUid = uid.slice(0, 3) + "*".repeat(uid.length - 25);
+
     const nweetObj = {
       text: nweet,
       createdAt: Date.now(),
       creatorId: userObj.uid,
+      // photosUrl, // <= 테스트
+      photo: userPhoto,
+      Name: userName,
+      uid: nweetUid,
+      date: now,
       attachmentUrl,
     };
     try {
@@ -65,6 +86,7 @@ const NweetFactory = ({ userObj }) => {
     reader.readAsDataURL(theFile); //readAsDataURL을 사용해서 파일을 읽는다.
   };
   const onClearAttachment = () => setAttachment("");
+
   return (
     <form onSubmit={onSubmit} className="factoryForm">
       <div className="factoryInput__container">

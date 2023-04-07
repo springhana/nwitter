@@ -10,6 +10,8 @@ function Navigation({ userObj }) {
   //   const userName = userObj.email.split("@")[0];
   //   userObj.displayName = userName;
   // }
+  if (userObj.photoURL === null) {
+  }
   return (
     <>
       <nav>

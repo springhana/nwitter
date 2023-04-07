@@ -40,7 +40,6 @@ function Home({ userObj }) {
       setNweets(nweetArr);
     });
   }, []);
-
   return (
     <div className="container">
       <NweetFactory userObj={userObj} />

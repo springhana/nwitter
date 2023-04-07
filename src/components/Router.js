@@ -4,7 +4,7 @@ import Home from "../router/Home";
 import Navigation from "./Navigation";
 import Profile from "../router/Profile";
 
-const AppRouter = ({ refreshUser, isLoggedIn, userObj, userName }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {isLoggedIn && <Navigation userObj={userObj} />}
