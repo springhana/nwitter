@@ -1,7 +1,7 @@
 # 정보
 ※ 노마드코더 - 트위터클론강의<br>
-※ 사용한 DB - Firebase
-
+※ 사용한 DB - Firebase<br>
+※ <a href="https://springhana.github.io/nwitter/#/">글 쓰기 -></a>
 # 추가 구현
 ※ 프로필 사진 추가, 수정, 고유 UID, 글 쓴 날짜 추가
 
